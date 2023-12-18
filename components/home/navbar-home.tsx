@@ -106,7 +106,7 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        Anti-Cheat Exam App
+        TCU Online Test
       </Typography>
       <Divider />
       <List>
@@ -149,8 +149,8 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
 
               <Link href="/">
                 <Image
-                  src="/images/logo.png"
-                  height="48px"
+                  src="/images/logo_tcu.png"
+                  height="72px"
                   width="48px"
                   alt="Logo"
                   className={classes.navLogo}
@@ -162,12 +162,12 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
                 component="div"
                 sx={{ flexGrow: 1, ml: 2 }}
               >
-                Anti-Cheat Exam App
+                TCU Online Test
               </Typography>
 
               <Box sx={{ display: { xs: "none", sm: "block" } }}>
                 <Link href="/">
-                  <NavButton text="Home" />
+                  <NavButton text="Trang chủ" />
                 </Link>
 
                 {session.status === "authenticated" && (
@@ -179,7 +179,7 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
 
                 {session.status === "unauthenticated" && (
                   <NavButton
-                    text="Login"
+                    text="Đăng nhập"
                     onClick={() => gotoPage("/auth/login")}
                   />
                 )}

@@ -6,7 +6,7 @@ import { User } from "../../../models/user-models";
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
-    // maxAge: 60 * 60,
+    maxAge: 60 * 60,
   },
 
   providers: [

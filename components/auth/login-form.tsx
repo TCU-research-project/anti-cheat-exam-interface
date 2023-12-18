@@ -54,10 +54,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ loadingBarRef }) => {
     const isPasswordValid = passwordRegex.test(password);
 
     setErrors({
-      idError: isIdValid ? "" : "ID must be a 10 digit number",
+      idError: isIdValid ? "" : "ID có 10 chữ số",
       passwordError: isPasswordValid
         ? ""
-        : "Password must be atleast 8 character long",
+        : "Mật khẩu phải có ít nhất 8 ký tự",
     });
   };
 
@@ -89,7 +89,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ loadingBarRef }) => {
       // TODO: Fix login toast error message
 
       console.log(e);
-      toast(e.message || "Login failed, please try again!");
+      toast(e.message || "Đăng nhập thất bại, hãy thử lại!");
       setLoading(false);
       loadingBarRef?.current?.complete();
     } finally {
@@ -130,8 +130,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ loadingBarRef }) => {
               />
             </Avatar>
 
-            <Typography component="h1" variant="h5" sx={{ mb: 5 }}>
-              Anti-Cheat Exam App
+            <Typography component="h1" variant="h6" sx={{ mb: 5 }} align="center" fontWeight="bold">
+              Phần mềm thi trực tuyến
             </Typography>
 
             <Box
@@ -178,7 +178,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ loadingBarRef }) => {
                 onClick={handleSubmit}
                 disabled={loading || idError != "" || passwordError != ""}
               >
-                Sign In
+                Đăng nhập
               </Button>
             </Box>
           </Box>

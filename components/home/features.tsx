@@ -15,57 +15,58 @@ interface FeaturesProps {}
 const featureList = [
   {
     icon: "ai_icon.png",
-    title: "AI Face Detection",
+    title: "Nhận diện gương mặt",
     content:
-      "Advance AI and ML to detect cheating by tracking student’s facial movements",
+      "AI và học máy để phát hiện gian lận bằng cách theo dõi chuyển động khuôn mặt",
   },
-  {
-    icon: "cross_platform.png",
-    title: "Cross Platform",
-    content: "This platform is availabe on Web, Android and iOS",
-    padding: "12px",
-    color: "darkmagenta",
-  },
-  {
-    icon: "phone_lock_icon.png",
-    title: "Blocks Screen Capture",
-    content: "The mobile version of the app blocks any form of screen capture",
-    padding: "12px",
-    color: "lightblue",
-  },
+  // {
+  //   icon: "cross_platform.png",
+  //   title: "Cross Platform",
+  //   content: "This platform is availabe on Web, Android and iOS",
+  //   padding: "12px",
+  //   color: "darkmagenta",
+  // },
+  // {
+  //   icon: "phone_lock_icon.png",
+  //   title: "Ngăn chặn chụp ảnh màn hình",
+  //   content: "The mobile version of the app blocks any form of screen capture",
+  //   padding: "12px",
+  //   color: "lightblue",
+  // },
   {
     icon: "cross_icon.svg",
-    title: "Blocks App Exit",
-    content: "The user cannot exit the app or change tab during exam",
+    title: "Chặn thoát ứng dụng",
+    content: "Người dùng không thể thoát khỏi ứng dụng hoặc thay đổi tab trong khi thi",
     padding: "0px",
   },
   {
     icon: "assesment_icon.svg",
-    title: "Assesment and Auditing",
-    content: "Support for instant assessment and auditing",
+    title: "Đánh giá và kiểm tra",
+    content: "Hỗ trợ đánh giá và kiểm tra ngay lập tức",
     padding: "0px",
-  },
-  {
-    icon: "video_icon.svg",
-    color: "#DD7F6B",
-    title: "Video Proctoring",
-    content: "Support for live video proctoring (future support)",
-  },
-  {
-    icon: "comm_icon.svg",
-    title: "Live Communication",
-    content:
-      "Live real time communication between user and proctor (future support)",
-    padding: "12px",
     color: "midnightblue",
   },
+  // {
+  //   icon: "video_icon.svg",
+  //   color: "#DD7F6B",
+  //   title: "Video giám sát",
+  //   content: "Support for live video proctoring (future support)",
+  // },
+  // {
+  //   icon: "comm_icon.svg",
+  //   title: "Giao tiếp trực tuyên",
+  //   content:
+  //     "Live real time communication between user and proctor (future support)",
+  //   padding: "12px",
+  //   color: "midnightblue",
+  // },
 ];
 
 const Features: React.FC<FeaturesProps> = () => {
   return (
     <section className={classes.featureSection}>
       <Container>
-        <h1>Features</h1>
+        <h1>Chức năng chính</h1>
 
         <Grid
           container

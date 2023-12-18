@@ -30,15 +30,14 @@ const Hero: React.FC<HeroProps> = ({ loadingBarRef }) => {
             alignItems="start"
           >
             <div className={classes.heroText}>
-              <h1>Online exams made fairer</h1>
+              <h1>Phần mềm thi online</h1>
 
               <p>
-                Detect cheating in online exams with the power of Artificial
-                Intelligence & Machine Learning
+                Phát hiện gian lận trong thi trực tuyến bằng trí tuệ nhân tạo và học máy
               </p>
 
               <Stack direction="row" className={classes.buttonGroup}>
-                <Link
+                {/* <Link
                   href="https://github.com/prathamesh-mutkure/anti-cheat-exam-app"
                   target="_blank"
                 >
@@ -50,7 +49,7 @@ const Hero: React.FC<HeroProps> = ({ loadingBarRef }) => {
                   >
                     Mobile App
                   </Button>
-                </Link>
+                </Link> */}
 
                 {session.status === "authenticated" ? (
                   <Link href="/dashboard">
@@ -74,7 +73,7 @@ const Hero: React.FC<HeroProps> = ({ loadingBarRef }) => {
                       disabled={session.status === "loading"}
                       onClick={showLoadingWidget}
                     >
-                      Login
+                      Đăng nhập
                     </Button>
                   </Link>
                 )}
