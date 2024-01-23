@@ -38,7 +38,8 @@ const getAssignedExams = async (userId: string, token: string) => {
 
     return data.exams;
   } catch (e) {
-    throw e;
+    console.log(e)
+    return [];
   }
 };
 

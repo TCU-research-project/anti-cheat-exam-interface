@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { Box, Container } from "@mui/system";
 import Image from "next/image";
 import { LoadingBarRef } from "react-top-loading-bar";
+import { getUser } from "../../helpers/api/user-api";
 
 interface LoginFormProps {
   loadingBarRef: React.RefObject<LoadingBarRef>;
@@ -22,8 +23,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ loadingBarRef }) => {
   const router = useRouter();
 
   const [formData, setData] = useState({
-    id: "1800760308",
-    password: "12345678",
+    id: "1800760309",
+    password: "123456789",
   });
 
   const [errors, setErrors] = useState({
@@ -72,23 +73,21 @@ const LoginForm: React.FC<LoginFormProps> = ({ loadingBarRef }) => {
     loadingBarRef?.current?.continuousStart(50);
 
     try {
-      const result = await signIn("credentials", {
-        redirect: false,
-        id: id,
-        password: password,
-      });
+      const [result, _] = await Promise.all(
+        [getUser(id, password), 
+          signIn("credentials", {
+            redirect: false,
+            id: id,
+            password: password,
+          })]);
 
-      if (result.error) {
-        throw new Error(result.error);
-      }
-
-      if (result.ok) {
-        router.replace("/dashboard");
-      }
+      localStorage.setItem('examToken', result.token);
+      localStorage.setItem('user', result.id);
+      localStorage.setItem('fname', result.fname);
+      router.push('/dashboard');
     } catch (e) {
       // TODO: Fix login toast error message
 
-      console.log(e);
       toast(e.message || "Đăng nhập thất bại, hãy thử lại!");
       setLoading(false);
       loadingBarRef?.current?.complete();

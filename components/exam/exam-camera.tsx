@@ -81,7 +81,7 @@ const ExamCamera: React.FC<ExamCameraProps> = () => {
 
           if (currentFrame.current >= frameRefresh) {
             currentFrame.current = 0;
-            await faceDetection.send({ image: webcamRef.current.video });
+            await faceDetection.send({ image: webcamRef.current?.video });
           }
         },
         width: 1280,
