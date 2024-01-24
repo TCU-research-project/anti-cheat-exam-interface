@@ -192,7 +192,19 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
           height: "calc(100% - 4rem)",
         }}
       >
-        <Grid item xs={9}>
+        <Grid item xs={3}>
+          <Grid
+            container
+            direction="column"
+            height="100%"
+            justifyContent=""
+          >
+            <Grid item>
+              <QuestionTracker />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={6}>
           <Grid
             container
             direction="column"
@@ -202,7 +214,7 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
             <Grid item>
               <QuestionWidget />
             </Grid>
-            <Grid item>
+            <Grid item style={{ marginBottom: "40px" }} alignContent="center">
               <ExamButtonsGroup />
               {/* <p>Exam Leave Count: {activeExam.tabChangeCount}</p> */}
             </Grid>
@@ -214,11 +226,8 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
             container
             direction="column"
             height="100%"
-            justifyContent="space-between"
+            justifyContent=""
           >
-            <Grid item>
-              <QuestionTracker />
-            </Grid>
             <Grid item>
               <ExamCamera />
             </Grid>

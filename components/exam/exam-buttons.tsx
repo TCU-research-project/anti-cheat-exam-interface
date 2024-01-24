@@ -44,7 +44,7 @@ const ExamButtonsGroup: React.FC<ExamButtonsGroupProps> = () => {
     <div className={classes.examButtonGroup}>
       <Stack direction="row" spacing={2} justifyContent="center">
         <ExamButton label="Previous" onTap={onPreviousClicked} color="grey" />
-        <ExamButton label="Next" onTap={onNextClicked} color="purple" />
+        <ExamButton label="Next" onTap={onNextClicked} color="#388e3c" />
       </Stack>
     </div>
   );

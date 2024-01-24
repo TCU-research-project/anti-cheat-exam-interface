@@ -5,6 +5,7 @@ import {
   Button,
   Divider,
   Drawer,
+  Grid,
   IconButton,
   List,
   ListItem,
@@ -73,7 +74,7 @@ const NavBarDashboard: React.FC<NavBarDashboardProps> = (props) => {
 
   return (
     <React.Fragment>
-      <AppBar position="static">
+      <AppBar position="static" style={{borderRadius: "0 0 25px 25px"}}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -87,26 +88,25 @@ const NavBarDashboard: React.FC<NavBarDashboardProps> = (props) => {
 
           <Link href="/">
             <Image
-              src="/images/logo.png"
-              height="48px"
+              src="/images/logo_tcu.png"
+              height="72px"
               width="48px"
               alt="Logo"
               className={classes.navLogo}
-              onClick={showLoading}
             />
           </Link>
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 2 }}>
-            Anti-Cheat Exam App
+            Online Test
           </Typography>
 
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Link href="/">
+            {/* <Link href="/">
               <Button sx={{ color: "#fff" }} onClick={showLoading}>
                 Home
               </Button>
-            </Link>
-
+            </Link> */}
+            <Grid justifyContent="space-between">
             {session.status === "authenticated" && (
               <Link href="/dashboard">
                 <Button sx={{ color: "#fff" }}>Dashboard</Button>
@@ -130,6 +130,8 @@ const NavBarDashboard: React.FC<NavBarDashboardProps> = (props) => {
                 Logout
               </Button>
             )}
+            </Grid>
+            
           </Box>
         </Toolbar>
       </AppBar>

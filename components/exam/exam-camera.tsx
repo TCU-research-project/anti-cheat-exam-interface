@@ -42,14 +42,14 @@ const ExamCamera: React.FC<ExamCameraProps> = () => {
     function onResult(result: Results) {
       // TODO: Fix multiple toasts
       if (result.detections.length < 1) {
-        // toast(
-        //   "Face not detected, make sure your face is visible on the screen!"
-        // );
+        toast(
+          "Face not detected, make sure your face is visible on the screen!"
+        );
         return;
       } else if (result.detections.length > 1) {
-        // toast(
-        //   "Detected more than one person in frame, can be flagged as cheating!"
-        // );
+        toast(
+          "Detected more than one person in frame, can be flagged as cheating!"
+        );
         return;
       }
 

@@ -11,7 +11,21 @@ import { createTheme, ThemeProvider } from "@mui/material";
 
 const theme = createTheme({
   typography: {
-    fontFamily: `"Montserrat", "Roboto", "Helvetica", "Arial", sans-serif`,
+    fontFamily: `"Helvetica", "Arial"`,
+  },
+  palette: {
+    primary: {
+      main: '#388e3c',
+      // light: will be calculated from palette.primary.main,
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      main: '#E0C2FF',
+      light: '#F5EBFF',
+      // dark: will be calculated from palette.secondary.main,
+      contrastText: '#47008F',
+    },
   },
 });
 
@@ -22,7 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ThemeProvider theme={theme}>
           <Head>
             <title>Anti-Cheat Exam App</title>
-            <meta name="author" content="Prathamesh Mutkure" />
+            <meta name="author" content="TCU developer" />
           </Head>
           <Component {...pageProps} />
           <ToastContainer position="bottom-center" theme="light" />

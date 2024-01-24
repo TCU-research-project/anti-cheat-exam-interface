@@ -49,7 +49,7 @@ const AppBarExam: React.FC<AppBarExamProps> = ({ examName, loadingBarRef }) => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="static" style={{borderRadius: "0 0 25px 25px"}}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {examName}

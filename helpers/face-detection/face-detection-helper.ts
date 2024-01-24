@@ -82,7 +82,7 @@ export const getCheatingStatus = (
 ): string => {
   if (lookingLeft) return "Cheating Detected: You're looking left";
   else if (lookingRight) return "Cheating Detected: You're looking right";
-  else return "Everything okay!";
+  else return "Everything is okay!";
 };
 
 export const b64toBlob = async (base64: string) =>
