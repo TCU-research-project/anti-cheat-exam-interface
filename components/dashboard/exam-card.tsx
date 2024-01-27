@@ -14,13 +14,12 @@ import {
 import Link from "next/link";
 import { AssignedExam } from "../../models/exam-models";
 import classes from "./exam-card.module.scss";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import TimelapseIcon from "@mui/icons-material/Timelapse";
-import DateRangeIcon from "@mui/icons-material/DateRange";
-import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import moment, { monthsShort } from "moment";
 import { Stack } from "@mui/system";
 import { LoadingBarRef } from "react-top-loading-bar";
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import QuizIcon from '@mui/icons-material/Quiz';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 // TODO: Disable button for past or future exam
 
@@ -69,7 +68,7 @@ const ExamCard: React.FC<ExamCardProps> = ({ exam, loadingBarRef }) => {
           <List>
             <ListItem>
               <ListItemIcon>
-                <DateRangeIcon />
+                <CalendarTodayIcon />
               </ListItemIcon>
               <ListItemText
                 primaryTypographyProps={{ fontSize: 14, fontWeight: "medium" }}
@@ -86,7 +85,7 @@ const ExamCard: React.FC<ExamCardProps> = ({ exam, loadingBarRef }) => {
 
             <ListItem>
               <ListItemIcon>
-                <TimelapseIcon />
+                <AccessAlarmIcon />
               </ListItemIcon>
               <ListItemText
                 primary={`${duration} Minutes`}
@@ -96,7 +95,7 @@ const ExamCard: React.FC<ExamCardProps> = ({ exam, loadingBarRef }) => {
 
             <ListItem>
               <ListItemIcon>
-                <FormatListNumberedIcon />
+                <QuizIcon />
               </ListItemIcon>
               <ListItemText
                 primary={`${exam.questionCount} Questions`}
@@ -105,25 +104,28 @@ const ExamCard: React.FC<ExamCardProps> = ({ exam, loadingBarRef }) => {
             </ListItem>
           </List>
         </CardContent>
-        <CardActions>
-          <Link href={`/exam/${exam._id}`}>
-            <Button
-              size="small"
-              variant="contained"
-              color="primary"
-              sx={{
-                ml: 2,
-                mb: 1,
-              }}
-              onClick={() => {
-                console.log("LOL");
+        <CardActions style={{display: 'flex', justifyContent: 'center'}}>
+          <div>
+            <Link href={`/exam/${exam._id}`}>
+              <Button
+                size="small"
+                variant="contained"
+                color="primary"
+                sx={{
+                  ml: 2,
+                  mb: 1,
+                }}
+                onClick={() => {
+                  console.log("LOL");
 
-                loadingBarRef.current.continuousStart(50);
-              }}
-            >
-              Start Exam
-            </Button>
-          </Link>
+                  loadingBarRef.current.continuousStart(50);
+                }}
+              >
+                Start Exam
+              </Button>
+            </Link>
+          </div>
+
         </CardActions>
       </Card>
     </div>

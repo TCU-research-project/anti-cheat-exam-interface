@@ -113,7 +113,7 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
         setDidLeaveExam(true);
       } else {
         showModal(
-          "WAARNING!",
+          "WARNING!",
           "Leaving exam multiple times may be flagged as cheating!"
         );
       }
@@ -155,7 +155,7 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
     dispatch(examActions.increaseTabChangeCount());
 
     if (activeExam.tabChangeCount > 3) {
-      toast("You've changed tab more than 3 times, submiting exam!");
+      toast("You've changed tab more than 3 times, exam is being submitted!");
       // TODO: submit exam
     }
   };
@@ -229,7 +229,7 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
             justifyContent=""
           >
             <Grid item>
-              <ExamCamera />
+              <ExamCamera triggerWarningModal={showModal} />
             </Grid>
           </Grid>
         </Grid>

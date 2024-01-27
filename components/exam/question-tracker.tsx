@@ -32,8 +32,9 @@ const QuestionCircle: React.FC<QuestionCircleProps> = ({
         <Avatar
           onClick={onClick}
           sx={{
-            border: highlight ? "solid 3px black" : "",
-            backgroundColor: isAnswered ? "green" : "red",
+            border: highlight ? "solid 3px black" : isAnswered ? "solid 3px black" : "dashed 2px",
+            backgroundColor: isAnswered ? "#388e3c" : "white",
+            color: "black"
           }}
         >
           {questionNumber}
@@ -83,7 +84,8 @@ const QuestionTracker: React.FC<QuestionTrackerProps> = () => {
             <ListItemIcon>
               <Avatar
                 sx={{
-                  backgroundColor: "green",
+                  backgroundColor: "#388e3c",
+                  border: "solid 3px black"
                 }}
               >
                 {" "}
@@ -95,7 +97,8 @@ const QuestionTracker: React.FC<QuestionTrackerProps> = () => {
             <ListItemIcon>
               <Avatar
                 sx={{
-                  backgroundColor: "red",
+                  backgroundColor: "white",
+                  border: "dashed 2px black"
                 }}
               >
                 {" "}

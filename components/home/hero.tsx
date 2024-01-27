@@ -26,17 +26,17 @@ const Hero: React.FC<HeroProps> = ({ loadingBarRef }) => {
         <Container>
           <Stack
             direction="row"
-            justifyContent="space-around"
-            alignItems="start"
+            justifyContent="center"
+            alignItems="center"
           >
-            <div className={classes.heroText}>
+            <div style={{textAlign: 'center'}}>
               <h1>Phần mềm thi online</h1>
 
               <p>
                 Phát hiện gian lận trong thi trực tuyến bằng trí tuệ nhân tạo và học máy
               </p>
 
-              <Stack direction="row" className={classes.buttonGroup}>
+              <Stack direction="row" justifyContent="center" alignItems="center" className={classes.buttonGroup}>
                 {/* <Link
                   href="https://github.com/prathamesh-mutkure/anti-cheat-exam-app"
                   target="_blank"
@@ -80,14 +80,14 @@ const Hero: React.FC<HeroProps> = ({ loadingBarRef }) => {
               </Stack>
             </div>
 
-            <div className={classes.phone}>
+            {/* <div className={classes.phone}>
               <Image
                 src="/images/hero_img.png"
                 width="300px"
                 height="600px"
                 alt="Hero Image"
               />
-            </div>
+            </div> */}
           </Stack>
         </Container>
       </section>

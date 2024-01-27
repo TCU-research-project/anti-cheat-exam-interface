@@ -14,9 +14,11 @@ import {
 } from "../../helpers/face-detection/face-detection-helper";
 import classes from "./exam-camera.module.scss";
 
-interface ExamCameraProps {}
+interface ExamCameraProps {
+  triggerWarningModal: (title: string, description: string) => void;
+}
 
-const ExamCamera: React.FC<ExamCameraProps> = () => {
+const ExamCamera: React.FC<ExamCameraProps> = ({triggerWarningModal}) => {
   const [img_, setImg_] = useState<string>();
   const webcamRef: React.LegacyRef<Webcam> = useRef();
   const faceDetectionRef = useRef<FaceDetection>(null);
@@ -42,14 +44,16 @@ const ExamCamera: React.FC<ExamCameraProps> = () => {
     function onResult(result: Results) {
       // TODO: Fix multiple toasts
       if (result.detections.length < 1) {
-        toast(
-          "Face not detected, make sure your face is visible on the screen!"
-        );
+        triggerWarningModal("WARNING", "Face not detected, make sure your face is visible on the screen!");
+        // toast(
+        //   "Face not detected, make sure your face is visible on the screen!"
+        // );
         return;
       } else if (result.detections.length > 1) {
-        toast(
-          "Detected more than one person in frame, can be flagged as cheating!"
-        );
+        triggerWarningModal("DETECT MULTIPLE FACE", "Detected more than one person in frame, can be flagged as cheating!");
+        // toast(
+        //   "Detected more than one person in frame, can be flagged as cheating!"
+        // );
         return;
       }
 
