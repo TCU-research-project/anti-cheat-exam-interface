@@ -26,6 +26,10 @@ a {
   border-radius: 24px !important;
 }
 
+.MuiBox-root {
+  border-radius: 24px !important;
+}
+
 .MuiInputBase-root {
   border-radius: 24px !important;
 }

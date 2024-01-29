@@ -13,12 +13,17 @@ import {
   printLandmarks,
 } from "../../helpers/face-detection/face-detection-helper";
 import classes from "./exam-camera.module.scss";
+import { CheatingType } from "../../pages/exam/[examId]";
 
 interface ExamCameraProps {
   triggerWarningModal: (title: string, description: string) => void;
+  handleCheating: (type: CheatingType) => void;
+  onOpenHandleCheat: () => void;
+  onLockHandleCheat: () => void;
+  openHandleCheat: boolean;
 }
 
-const ExamCamera: React.FC<ExamCameraProps> = ({triggerWarningModal}) => {
+const ExamCamera: React.FC<ExamCameraProps> = ({triggerWarningModal, handleCheating, onOpenHandleCheat, openHandleCheat}) => {
   const [img_, setImg_] = useState<string>();
   const webcamRef: React.LegacyRef<Webcam> = useRef();
   const faceDetectionRef = useRef<FaceDetection>(null);
@@ -45,12 +50,18 @@ const ExamCamera: React.FC<ExamCameraProps> = ({triggerWarningModal}) => {
       // TODO: Fix multiple toasts
       if (result.detections.length < 1) {
         triggerWarningModal("WARNING", "Face not detected, make sure your face is visible on the screen!");
+        if (openHandleCheat) {
+          handleCheating(CheatingType.noFace);
+        }
         // toast(
         //   "Face not detected, make sure your face is visible on the screen!"
         // );
         return;
       } else if (result.detections.length > 1) {
         triggerWarningModal("DETECT MULTIPLE FACE", "Detected more than one person in frame, can be flagged as cheating!");
+        if (openHandleCheat) {
+          handleCheating(CheatingType.multipleFace);
+        }
         // toast(
         //   "Detected more than one person in frame, can be flagged as cheating!"
         // );
@@ -67,7 +78,22 @@ const ExamCamera: React.FC<ExamCameraProps> = ({triggerWarningModal}) => {
       );
 
       const cheatingStatus = getCheatingStatus(lookingLeft, lookingRight);
-      setChetingStatus(cheatingStatus);
+      if (cheatingStatus === 'lookingLeft') {
+        if (openHandleCheat) {
+          handleCheating(CheatingType.lookingLeft)
+        }
+        setChetingStatus("");
+        triggerWarningModal("CHEATING DETECTED", "You're looking left")
+      } else if (cheatingStatus === 'lookingRight') {
+        if (openHandleCheat) {
+          handleCheating(CheatingType.lookingRight);
+        }
+        setChetingStatus("");
+        triggerWarningModal("CHEATING DETECTED", "You're looking right")
+      } else {
+        setChetingStatus("Everything is okay!");
+        onOpenHandleCheat();
+      }
     }
 
     faceDetection.onResults(onResult);

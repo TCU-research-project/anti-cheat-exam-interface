@@ -7,6 +7,7 @@ import ExamButtonsGroup from "../../components/exam/exam-buttons";
 import ExamCamera from "../../components/exam/exam-camera";
 import QuestionTracker from "../../components/exam/question-tracker";
 import QuestionWidget from "../../components/exam/question-widget";
+import CheatStatistic from "../../components/exam/cheat-statistic";
 import { getExam } from "../../helpers/api/exam-api";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { Exam } from "../../models/exam-models";
@@ -22,6 +23,7 @@ import WarningModal from "../../components/exam/exam-modals";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
+import CheatingTableModal from "../../components/exam/cheating-table-modal";
 
 const TESTING = false;
 
@@ -52,6 +54,42 @@ interface ExamPageProps {
   error: string;
 }
 
+export interface CheatingStatistic {
+  lookingLeft: number;
+  lookingRight: number;
+  multipleFace: number;
+  noFace: number;
+  leavingTab: number;
+}
+
+export enum CheatingType {
+  lookingLeft = 'lookingLeft',
+  lookingRight = 'lookingRight',
+  multipleFace = 'multipleFace',
+  noFace = 'noFace',
+  leavingTab = 'leavingTab'
+}
+
+export enum CheatingTypeText {
+  lookingLeft = 'Looking left',
+  lookingRight = 'Looking Right',
+  multipleFace = 'Multiple Face Detected',
+  noFace = 'No-face detected',
+  leavingTab = 'Leaving Tab'
+}
+
+export interface CheatingData {
+  text: string;
+  time: any;
+}
+
+const cheatingMockData: Array<CheatingData> = [
+  { text: CheatingTypeText.leavingTab, time: Date.now() },
+  { text: CheatingTypeText.lookingLeft, time: Date.now() },
+  { text: CheatingTypeText.multipleFace, time: Date.now() },
+  { text: CheatingTypeText.noFace, time: Date.now() },
+];
+
 const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -66,6 +104,40 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
     title: string;
     description: string;
   }>();
+
+  const openHandleCheat = useRef(true);
+
+  const onOpenHandleCheat = () => openHandleCheat.current = true;
+  const onLockHandleCheat = () => openHandleCheat.current = false;
+
+  const handleCheating = (type: CheatingType) => {
+    if (openHandleCheat.current) {
+      setCheatingStatistic((prevState: CheatingStatistic) => ({
+        ...prevState,
+        [type]: prevState[type] + 1
+      }));
+      setCheatDatas(
+        (prevState: CheatingData[]) => [...prevState, {text: CheatingTypeText[type], time: Date.now()}])
+    }
+    onLockHandleCheat();
+  };
+
+  const [cheatingStatistic, setCheatingStatistic] = useState<CheatingStatistic>({
+    lookingLeft: 0,
+    lookingRight: 0,
+    multipleFace: 0,
+    noFace: 0,
+    leavingTab: 0
+  });
+
+  const [cheatDatas, setCheatDatas] = useState<CheatingData[]>(cheatingMockData)
+
+  const [openCheatTableModal, setOpenCheatTableModal] = React.useState(false);
+  const handleCheatTableModalOpen = () => setOpenCheatTableModal(true);
+  const handleCheatTableModalClose = () => {
+    openHandleCheat.current = true;
+    setOpenCheatTableModal(false);
+  };
 
   // Load exam into state
   useEffect(() => {
@@ -116,6 +188,8 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
           "WARNING!",
           "Leaving exam multiple times may be flagged as cheating!"
         );
+        handleCheating(CheatingType.leavingTab);
+        dispatch(examActions.increaseTabChangeCount());
       }
     };
 
@@ -142,17 +216,14 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
   };
 
   const hideModel = () => {
-    if (!didLeaveExam) {
-      return;
-    }
-
+    // if (!didLeaveExam) {
+    //   return;
+    // }
     setIsModalVisible(false);
     setModalData({
       title: "",
       description: "",
     });
-
-    dispatch(examActions.increaseTabChangeCount());
 
     if (activeExam.tabChangeCount > 3) {
       toast("You've changed tab more than 3 times, exam is being submitted!");
@@ -226,10 +297,23 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
             container
             direction="column"
             height="100%"
-            justifyContent=""
+            justifyContent="space-between"
           >
             <Grid item>
-              <ExamCamera triggerWarningModal={showModal} />
+              <ExamCamera 
+                triggerWarningModal={showModal} 
+                handleCheating={handleCheating}
+                onLockHandleCheat={onLockHandleCheat}
+                onOpenHandleCheat={onOpenHandleCheat}
+                openHandleCheat={openHandleCheat.current}
+              />
+            </Grid>
+            <Grid item>
+              <CheatStatistic 
+                cheatingStatistic={cheatingStatistic} 
+                handleCheatTableModalOpen={handleCheatTableModalOpen} 
+                handleCheatTableModalClose={handleCheatTableModalClose} 
+              />
             </Grid>
           </Grid>
         </Grid>
@@ -244,6 +328,11 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
           onClose={hideModel}
         />
       )}
+      <CheatingTableModal 
+        isOpen={openCheatTableModal} 
+        cheatDatas={cheatDatas} 
+        handleCheatTableModalClose={handleCheatTableModalClose} 
+      />
     </React.Fragment>
   );
 };
