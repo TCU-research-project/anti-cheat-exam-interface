@@ -84,10 +84,10 @@ export interface CheatingData {
 }
 
 const cheatingMockData: Array<CheatingData> = [
-  { text: CheatingTypeText.leavingTab, time: Date.now() },
-  { text: CheatingTypeText.lookingLeft, time: Date.now() },
-  { text: CheatingTypeText.multipleFace, time: Date.now() },
-  { text: CheatingTypeText.noFace, time: Date.now() },
+  // { text: CheatingTypeText.leavingTab, time: Date.now() },
+  // { text: CheatingTypeText.lookingLeft, time: Date.now() },
+  // { text: CheatingTypeText.multipleFace, time: Date.now() },
+  // { text: CheatingTypeText.noFace, time: Date.now() },
 ];
 
 const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
@@ -224,6 +224,7 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
       title: "",
       description: "",
     });
+    onOpenHandleCheat();
 
     if (activeExam.tabChangeCount > 3) {
       toast("You've changed tab more than 3 times, exam is being submitted!");

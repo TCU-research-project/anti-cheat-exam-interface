@@ -92,7 +92,7 @@ const ExamCamera: React.FC<ExamCameraProps> = ({triggerWarningModal, handleCheat
         triggerWarningModal("CHEATING DETECTED", "You're looking right")
       } else {
         setChetingStatus("Everything is okay!");
-        onOpenHandleCheat();
+        // onOpenHandleCheat();
       }
     }
 
