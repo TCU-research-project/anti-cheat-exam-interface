@@ -14,6 +14,9 @@ import {
 } from "../../helpers/face-detection/face-detection-helper";
 import classes from "./exam-camera.module.scss";
 import { CheatingType } from "../../pages/exam/[examId]";
+import { draw } from "../../utils";
+import * as tf from '@tensorflow/tfjs';
+import '@tensorflow/tfjs-backend-webgl';
 
 interface ExamCameraProps {
   triggerWarningModal: (title: string, description: string) => void;
@@ -23,16 +26,65 @@ interface ExamCameraProps {
   openHandleCheat: boolean;
 }
 
-const ExamCamera: React.FC<ExamCameraProps> = ({triggerWarningModal, handleCheating, onOpenHandleCheat, openHandleCheat}) => {
+const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleCheating, onOpenHandleCheat, openHandleCheat }) => {
   const [img_, setImg_] = useState<string>();
   const webcamRef: React.LegacyRef<Webcam> = useRef();
   const faceDetectionRef = useRef<FaceDetection>(null);
   const realtimeDetection = true;
+  const canvasRef = useRef(null);
 
   const frameRefresh = 30;
   let currentFrame = useRef(0);
 
   const [chetingStatus, setChetingStatus] = useState("");
+
+  const blazeface = require('@tensorflow-models/blazeface');
+
+
+  const runFacedetection = async () => {
+
+    const model = await blazeface.load();
+    console.log("FaceDetection Model is Loaded..");
+    setInterval(() => {
+      detect(model);
+    }, 100);
+
+  };
+
+  const returnTensors = false;
+
+  const detect = async (model) => {
+    if (
+      typeof webcamRef.current !== "undefined" &&
+      webcamRef.current !== null &&
+      webcamRef.current.video.readyState === 4
+    ) {
+      // Get video properties
+      const video = webcamRef.current.video;
+      const videoWidth = webcamRef.current.video.videoWidth;
+      const videoHeight = webcamRef.current.video.videoHeight;
+
+
+      //Set video height and width
+      // webcamRef.current.video.width = videoWidth;
+      // webcamRef.current.video.height = videoHeight;
+
+      //Set canvas height and width
+      canvasRef.current.width = 640;
+      canvasRef.current.height = 480;
+
+      // Make detections
+
+      const prediction = await model.estimateFaces(video, returnTensors);
+
+      console.log(prediction);
+
+      const ctx = canvasRef.current.getContext("2d");
+      draw(prediction, ctx);
+    }
+
+  };
+
 
   useEffect(() => {
     const faceDetection: FaceDetection = new FaceDetection({
@@ -80,16 +132,16 @@ const ExamCamera: React.FC<ExamCameraProps> = ({triggerWarningModal, handleCheat
       const cheatingStatus = getCheatingStatus(lookingLeft, lookingRight);
       if (cheatingStatus === 'lookingLeft') {
         if (openHandleCheat) {
-          handleCheating(CheatingType.lookingLeft)
+          handleCheating(CheatingType.lookingLeft);
         }
         setChetingStatus("");
-        triggerWarningModal("CHEATING DETECTED", "You're looking left")
+        triggerWarningModal("CHEATING DETECTED", "You're looking left");
       } else if (cheatingStatus === 'lookingRight') {
         if (openHandleCheat) {
           handleCheating(CheatingType.lookingRight);
         }
         setChetingStatus("");
-        triggerWarningModal("CHEATING DETECTED", "You're looking right")
+        triggerWarningModal("CHEATING DETECTED", "You're looking right");
       } else {
         setChetingStatus("Everything is okay!");
         // onOpenHandleCheat();
@@ -121,6 +173,8 @@ const ExamCamera: React.FC<ExamCameraProps> = ({triggerWarningModal, handleCheat
       camera.start();
     }
 
+    runFacedetection();
+
     return () => {
       faceDetection.close();
     };
@@ -141,13 +195,34 @@ const ExamCamera: React.FC<ExamCameraProps> = ({triggerWarningModal, handleCheat
     <div className={classes.cameraContainer}>
       <p className={classes.cheatingStatus}>Cheating status: {chetingStatus}</p>
 
-      {true && (
-        <Webcam
-          className={classes.camera}
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-        />
-      )}
+      {/* {true && (
+        
+      )} */}
+      <Webcam
+        className={classes.camera}
+        ref={webcamRef}
+        screenshotFormat="image/jpeg"
+        style={{
+          position: 'relative',
+          top: 0,
+          left: 0,
+          zIndex: 9,
+          // display:'none'
+        }}
+      />
+      <canvas
+        ref={canvasRef}
+        style={{
+          // position: "absolute",
+          top: 2,
+          left: -3,
+          right: 50,
+          position: 'absolute',
+          zIndex: 9,
+          width: '100%',
+          height: '100%',
+        }}
+      />
 
       <br />
 

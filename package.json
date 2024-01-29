@@ -26,9 +26,13 @@
     "@emotion/styled": "^11.10.4",
     "@mediapipe/camera_utils": "^0.3.1640029074",
     "@mediapipe/face_detection": "^0.4.1646425229",
+    "@mediapipe/face_mesh": "^0.4.1633559619",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.10",
     "@reduxjs/toolkit": "^1.8.6",
+    "@tensorflow-models/blazeface": "0.0.7",
+    "@tensorflow-models/face-landmarks-detection": "^1.0.5",
+    "@tensorflow/tfjs": "^3.6.0",
     "dayjs": "^1.11.10",
     "moment": "^2.29.4",
     "next": "12.3.1",
@@ -39,7 +43,8 @@
     "react-timer-hook": "^3.0.5",
     "react-toastify": "^9.0.8",
     "react-top-loading-bar": "^2.3.1",
-    "react-webcam": "^7.0.1"
+    "react-webcam": "^7.0.1",
+    "web-vitals": "^1.1.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.16.4",
