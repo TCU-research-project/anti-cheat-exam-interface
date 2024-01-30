@@ -61,15 +61,7 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
     ) {
       // Get video properties
       const video = webcamRef.current.video;
-      const videoWidth = webcamRef.current.video.videoWidth;
-      const videoHeight = webcamRef.current.video.videoHeight;
 
-
-      //Set video height and width
-      // webcamRef.current.video.width = videoWidth;
-      // webcamRef.current.video.height = videoHeight;
-
-      //Set canvas height and width
       canvasRef.current.width = 640;
       canvasRef.current.height = 480;
 
