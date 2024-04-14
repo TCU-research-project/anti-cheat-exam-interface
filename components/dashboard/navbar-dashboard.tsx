@@ -89,7 +89,7 @@ const NavBarDashboard: React.FC<NavBarDashboardProps> = (props) => {
           <Link href="/">
             <Image
               src="/images/logo_tcu.png"
-              height="72px"
+              height="100px"
               width="48px"
               alt="Logo"
               className={classes.navLogo}
