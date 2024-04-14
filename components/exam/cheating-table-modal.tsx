@@ -27,7 +27,7 @@ interface CheatingTableModalProps {
 
 const convertDate = (timestamp: any) => {
   if (!timestamp) return "";
-  return dayjs(new Date(timestamp)).format("hh:mm:ss A");
+  return dayjs(new Date(timestamp)).format("HH:mm:ss");
 };
 
 const CheatingTableModal: React.FC<CheatingTableModalProps> = ({ isOpen, handleCheatTableModalClose, cheatDatas }) => {
@@ -41,7 +41,7 @@ const CheatingTableModal: React.FC<CheatingTableModalProps> = ({ isOpen, handleC
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
-            Statistic
+            Thống kê chi tiết
           </Typography>
           <List sx={{border: 'solid black 0.5px'}}>
             {cheatDatas.map((item, index) => {

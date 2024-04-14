@@ -16,7 +16,7 @@ const Dashboard: React.FC<DashboardProps> = ({ loadingBarRef }) => {
 
   return (
     <Container maxWidth="md" className={classes.container}>
-      <h1 className={classes.title}>Welcome {session.data?.user?.fname}!</h1>
+      <h1 className={classes.title}>Xin chào {session.data?.user?.fname}!</h1>
 
       <Grid container direction="column" spacing={4}>
         {assignedExams.map((exam) => (

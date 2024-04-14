@@ -32,8 +32,8 @@ const ExamCard: React.FC<ExamCardProps> = ({ exam, loadingBarRef }) => {
   const startDate = new Date(exam.startDate);
   const endDate = new Date(exam.endDate);
 
-  const startDateFormatted = moment(startDate).format("lll");
-  const endDateFormatted = moment(endDate).format("lll");
+  const startDateFormatted = moment(startDate).format("DD/MM/YYYY, H:mm");
+  const endDateFormatted = moment(endDate).format("DD/MM/YYYY, H:mm");
   const duration = moment.duration(exam.duration, "seconds").as("minutes");
 
   return (
@@ -74,6 +74,9 @@ const ExamCard: React.FC<ExamCardProps> = ({ exam, loadingBarRef }) => {
                 primaryTypographyProps={{ fontSize: 14, fontWeight: "medium" }}
               >
                 <span className={classes.examDateSpan}>
+                  Thời hạn nộp bài:
+                </span>
+                <span className={classes.examDateSpan}>
                   {startDateFormatted}
                 </span>
                 <span className={classes.examDateSpan}>
@@ -88,7 +91,7 @@ const ExamCard: React.FC<ExamCardProps> = ({ exam, loadingBarRef }) => {
                 <AccessAlarmIcon />
               </ListItemIcon>
               <ListItemText
-                primary={`${duration} Minutes`}
+                primary={`${duration} phút`}
                 primaryTypographyProps={{ fontSize: 14, fontWeight: "medium" }}
               />
             </ListItem>
@@ -98,7 +101,7 @@ const ExamCard: React.FC<ExamCardProps> = ({ exam, loadingBarRef }) => {
                 <QuizIcon />
               </ListItemIcon>
               <ListItemText
-                primary={`${exam.questionCount} Questions`}
+                primary={`${exam.questionCount} câu hỏi`}
                 primaryTypographyProps={{ fontSize: 14, fontWeight: "medium" }}
               />
             </ListItem>
@@ -116,12 +119,10 @@ const ExamCard: React.FC<ExamCardProps> = ({ exam, loadingBarRef }) => {
                   mb: 1,
                 }}
                 onClick={() => {
-                  console.log("LOL");
-
                   loadingBarRef.current.continuousStart(50);
                 }}
               >
-                Start Exam
+                Bắt đầu làm bài
               </Button>
             </Link>
           </div>

@@ -9,7 +9,7 @@ export const draw = (predictions, ctx) => {
   
         // Render a rectangle over each detected face.
         
-        ctx.beginPath();
+        ctx?.beginPath();
         ctx.lineWidth = "6";
         ctx.strokeStyle = "red";
         ctx.rect(start[0], start[1], size[0], size[1]);

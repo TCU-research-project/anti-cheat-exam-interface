@@ -14,7 +14,7 @@ export const drawMesh = (prediction, ctx) => {
     drawPath(ctx, points, true);
   }
   for (let keyPoint of keyPoints) {
-    ctx.beginPath();
+    ctx?.beginPath();
     ctx.arc(keyPoint.x, keyPoint.y, 1, 0, 3 * Math.PI);
     ctx.fillStyle = "aqua";
     ctx.fill();

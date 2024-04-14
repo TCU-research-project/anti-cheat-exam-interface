@@ -19,11 +19,12 @@ import {
   getVisibilityEventNames,
   usePageVisibility,
 } from "../../helpers/app/visibility-event";
-import WarningModal from "../../components/exam/exam-modals";
+import WarningModal, { EndExamModal, ExamResultModal } from "../../components/exam/exam-modals";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
 import CheatingTableModal from "../../components/exam/cheating-table-modal";
+import { submitExam } from "../../helpers/api/user-api";
 
 const TESTING = false;
 
@@ -71,11 +72,11 @@ export enum CheatingType {
 }
 
 export enum CheatingTypeText {
-  lookingLeft = 'Looking left',
-  lookingRight = 'Looking Right',
-  multipleFace = 'Multiple Face Detected',
-  noFace = 'No-face detected',
-  leavingTab = 'Leaving Tab'
+  lookingLeft = 'Nhìn sang trái',
+  lookingRight = 'Nhìn sang phải',
+  multipleFace = 'Phát hiện nhiều khuôn mặt',
+  noFace = 'Không phát hiện khuôn mặc',
+  leavingTab = 'Rời khỏi tab'
 }
 
 export interface CheatingData {
@@ -100,6 +101,12 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
   const [didLeaveExam, setDidLeaveExam] = useState(false);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalEndExamVisible, setIsModalEndExamVisible] = useState(false);
+  const [isModalExamResultVisible, setIsModalExamResultVisible] = useState(false);
+
+  const session = useSession();
+  const [isLoading, setIsLoading] = useState(false);
+
   const [modalData, setModalData] = useState<{
     title: string;
     description: string;
@@ -185,8 +192,8 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
         setDidLeaveExam(true);
       } else {
         showModal(
-          "WARNING!",
-          "Leaving exam multiple times may be flagged as cheating!"
+          "Cảnh báo!",
+          "Rời khỏi tab là hành vi gian lận!"
         );
         handleCheating(CheatingType.leavingTab);
         dispatch(examActions.increaseTabChangeCount());
@@ -215,6 +222,43 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
     });
   };
 
+  const showModalEndExam  = () => {
+    setIsModalEndExamVisible(true);
+  };
+
+  const showModalExamResult  = () => {
+    setIsModalExamResultVisible(true);
+  };
+
+  const hideModalEndExam  = () => {
+    setIsModalEndExamVisible(false);
+  };
+
+  const onSubmitExam = async () => {
+    setIsLoading(true);
+    loadingBarRef.current.continuousStart(50);
+
+    try {
+      const result = await submitExam(
+        session.data?.user.id,
+        activeExam.exam._id,
+        activeExam.answerKeys,
+        session.data?.user.token
+      );
+      hideModalEndExam();
+      showModalExamResult();
+    } catch (e) {
+      toast(e.message || "Failed to submit exam, please try again!");
+    } finally {
+      setIsLoading(false);
+      loadingBarRef.current.continuousStart(50);
+    }
+  };
+
+  const onFinish = () => {
+    router.replace("/dashboard");
+  }
+
   const hideModel = () => {
     // if (!didLeaveExam) {
     //   return;
@@ -227,7 +271,7 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
     onOpenHandleCheat();
 
     if (activeExam.tabChangeCount > 3) {
-      toast("You've changed tab more than 3 times, exam is being submitted!");
+      // toast("You've changed tab more than 3 times, exam is being submitted!");
       // TODO: submit exam
     }
   };
@@ -254,7 +298,9 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
 
       <AppBarExam
         examName={activeExam.exam.name}
-        loadingBarRef={loadingBarRef}
+        onEndExam={showModalEndExam}
+        isLoading={isLoading}
+        onSubmitExam={onSubmitExam}
       />
 
       <Grid
@@ -329,6 +375,17 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
           onClose={hideModel}
         />
       )}
+      <ExamResultModal
+        open={isModalExamResultVisible}
+        onClickButton={onFinish}
+      />
+      <EndExamModal
+        open={isModalEndExamVisible}
+        title={'Nộp bài'}
+        description={'Bạn có chắc chắn muốn nộp bài thi không'}
+        onClose={hideModalEndExam}
+        onClickButton={onSubmitExam}
+      />
       <CheatingTableModal 
         isOpen={openCheatTableModal} 
         cheatDatas={cheatDatas} 

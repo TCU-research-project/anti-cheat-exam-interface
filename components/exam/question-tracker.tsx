@@ -91,7 +91,7 @@ const QuestionTracker: React.FC<QuestionTrackerProps> = () => {
                 {" "}
               </Avatar>
             </ListItemIcon>
-            <ListItemText>Answered</ListItemText>
+            <ListItemText>Đã trả lời</ListItemText>
           </ListItem>
           <ListItem>
             <ListItemIcon>
@@ -104,7 +104,7 @@ const QuestionTracker: React.FC<QuestionTrackerProps> = () => {
                 {" "}
               </Avatar>
             </ListItemIcon>
-            <ListItemText>Not Answered</ListItemText>
+            <ListItemText>Chưa trả lời</ListItemText>
           </ListItem>
         </List>
       </div>

@@ -6,6 +6,7 @@ export interface Question {
 export interface Exam {
   questions: Question[];
   questionCount: number;
+  answerKeys: any[];
   _id: string;
   name: string;
   startDate: string;

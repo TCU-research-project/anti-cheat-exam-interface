@@ -97,7 +97,7 @@ const NavBarDashboard: React.FC<NavBarDashboardProps> = (props) => {
           </Link>
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 2 }}>
-            Online Test
+            Trắc nghiệm online
           </Typography>
 
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
@@ -109,13 +109,13 @@ const NavBarDashboard: React.FC<NavBarDashboardProps> = (props) => {
             <Grid justifyContent="space-between">
             {session.status === "authenticated" && (
               <Link href="/dashboard">
-                <Button sx={{ color: "#fff" }}>Dashboard</Button>
+                <Button sx={{ color: "#fff" }}>Bảng điều khiển</Button>
               </Link>
             )}
 
             {session.status === "unauthenticated" && (
               <Link href="/auth/login">
-                <Button sx={{ color: "#fff" }}>Login</Button>
+                <Button sx={{ color: "#fff" }}>Đăng nhập</Button>
               </Link>
             )}
 
@@ -127,7 +127,7 @@ const NavBarDashboard: React.FC<NavBarDashboardProps> = (props) => {
                 onClick={handleLogout}
                 sx={{ color: "#fff" }}
               >
-                Logout
+                Đăng xuất
               </Button>
             )}
             </Grid>

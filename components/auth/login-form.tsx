@@ -130,7 +130,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ loadingBarRef }) => {
             </Avatar>
 
             <Typography component="h1" variant="h6" sx={{ mb: 5 }} align="center" fontWeight="bold">
-              Online Test
+              Trắc nghiệm online
             </Typography>
 
             <Box

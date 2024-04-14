@@ -60,7 +60,7 @@ const Hero: React.FC<HeroProps> = ({ loadingBarRef }) => {
                       color="primary"
                       onClick={showLoadingWidget}
                     >
-                      Dashboard
+                      Bảng điều khiển
                     </Button>
                   </Link>
                 ) : (

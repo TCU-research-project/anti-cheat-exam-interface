@@ -69,9 +69,7 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
 
       const prediction = await model.estimateFaces(video, returnTensors);
 
-      console.log(prediction);
-
-      const ctx = canvasRef.current.getContext("2d");
+      const ctx = canvasRef.current?.getContext("2d");
       draw(prediction, ctx);
     }
 
@@ -93,7 +91,7 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
     function onResult(result: Results) {
       // TODO: Fix multiple toasts
       if (result.detections.length < 1) {
-        triggerWarningModal("WARNING", "Face not detected, make sure your face is visible on the screen!");
+        triggerWarningModal("CẢNH BÁO", "Không phát hiện khuôn mặt!");
         if (openHandleCheat) {
           handleCheating(CheatingType.noFace);
         }
@@ -102,7 +100,7 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
         // );
         return;
       } else if (result.detections.length > 1) {
-        triggerWarningModal("DETECT MULTIPLE FACE", "Detected more than one person in frame, can be flagged as cheating!");
+        triggerWarningModal("CẢNH BÁO", "Phát hiện nhiều khuôn mặt");
         if (openHandleCheat) {
           handleCheating(CheatingType.multipleFace);
         }
@@ -127,15 +125,15 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
           handleCheating(CheatingType.lookingLeft);
         }
         setChetingStatus("");
-        triggerWarningModal("CHEATING DETECTED", "You're looking left");
+        triggerWarningModal("PHÁT HIỆN GIAN LẬN", "Bạn đang nhìn sang trái");
       } else if (cheatingStatus === 'lookingRight') {
         if (openHandleCheat) {
           handleCheating(CheatingType.lookingRight);
         }
         setChetingStatus("");
-        triggerWarningModal("CHEATING DETECTED", "You're looking right");
+        triggerWarningModal("PHÁT HIỆN GIAN LẬN", "Bạn đang nhìn sang phải");
       } else {
-        setChetingStatus("Everything is okay!");
+        setChetingStatus("Không phát hiện bất thường");
         // onOpenHandleCheat();
       }
     }
@@ -185,7 +183,7 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
 
   return (
     <div className={classes.cameraContainer}>
-      <p className={classes.cheatingStatus}>Cheating status: {chetingStatus}</p>
+      <p className={classes.cheatingStatus}>Trạng thái hiện tại: {chetingStatus}</p>
 
       {/* {true && (
         

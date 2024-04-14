@@ -40,29 +40,29 @@ const CheatStatistic: React.FC<QuestionTrackerProps> = ({cheatingStatistic, hand
   return (
     <div className={classes.statisticTracker}>
       <Typography component="h1" variant="h6" sx={{ mb: 2 }} align="center" fontWeight="bold">
-        Cheating Counter
+        Thống kê gian lận
       </Typography>
       <div className={classes.questionStatisticLabel}>
         <List>
           <ListItem>
-            <ListItemText>Multiple face: {cheatingStatistic.multipleFace}</ListItemText>
+            <ListItemText>Nhiều khuôn mặt: {cheatingStatistic.multipleFace}</ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText>No-face detected: {cheatingStatistic.noFace}</ListItemText>
+            <ListItemText>Không có khuôn mặt: {cheatingStatistic.noFace}</ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText>Looking left: {cheatingStatistic.lookingLeft}</ListItemText>
+            <ListItemText>Nhìn sang trái: {cheatingStatistic.lookingLeft}</ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText>Looking right: {cheatingStatistic.lookingRight}</ListItemText>
+            <ListItemText>Nhìn sang phải: {cheatingStatistic.lookingRight}</ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText>Leaving tab: {cheatingStatistic.leavingTab}</ListItemText>
+            <ListItemText>Rời khỏi tab: {cheatingStatistic.leavingTab}</ListItemText>
           </ListItem>
         </List>
       </div>
       <Stack direction="row" justifyContent="center" sx={{ mt: 1}}>
-        <Button onClick={handleCheatTableModalOpen} variant="contained">Show detail</Button>
+        <Button onClick={handleCheatTableModalOpen} variant="contained">Chi tiết</Button>
       </Stack>
 
     </div>

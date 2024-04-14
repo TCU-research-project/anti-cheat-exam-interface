@@ -13,14 +13,14 @@ import Link from "next/link";
 interface FooterProps {}
 
 const footerLinks = [
-  {
-    label: "GitHub",
-    link: "https://github.com/prathamesh-mutkure/anti-cheat-app-web",
-  },
-  {
-    label: "Mobile",
-    link: "https://github.com/prathamesh-mutkure/anti-cheat-exam-app",
-  },
+  // {
+  //   label: "GitHub",
+  //   link: "https://github.com/prathamesh-mutkure/anti-cheat-app-web",
+  // },
+  // {
+  //   label: "Mobile",
+  //   link: "https://github.com/prathamesh-mutkure/anti-cheat-exam-app",
+  // },
   {
     label: "Home",
     link: "/",
@@ -43,7 +43,7 @@ const Footer: React.FC<FooterProps> = () => {
           </Grid>
         </Container>
 
-        <div className={classes.copyright}>
+        {/* <div className={classes.copyright}>
           <p>
             Developed by{" "}
             <a href="https://prathamesh.co" target="_blank" rel="noreferrer">
@@ -51,7 +51,7 @@ const Footer: React.FC<FooterProps> = () => {
             </a>{" "}
             &#169; {new Date().getFullYear()}
           </p>
-        </div>
+        </div> */}
       </footer>
     </div>
   );
