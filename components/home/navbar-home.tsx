@@ -172,7 +172,7 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
 
                 {session.status === "authenticated" && (
                   <NavButton
-                    text="Dashboard"
+                    text="Bảng điều khiển"
                     onClick={() => gotoPage("/dashboard")}
                   />
                 )}
