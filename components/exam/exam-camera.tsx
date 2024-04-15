@@ -17,6 +17,8 @@ import { CheatingType } from "../../pages/exam/[examId]";
 import { draw } from "../../utils";
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
+import * as facemesh from "@tensorflow-models/face-landmarks-detection";
+import { drawMesh } from "../../utils/drawMesh";
 
 interface ExamCameraProps {
   triggerWarningModal: (title: string, description: string) => void;
@@ -53,27 +55,70 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
 
   const returnTensors = false;
 
-  const detect = async (model) => {
+  //  Load posenet
+  const runFacemesh = async () => {
+    // OLD MODEL
+    // const net = await facemesh.load({
+    //   // inputResolution: { width: 640, height: 480 },
+    //   // scale: 0.8,
+    // });
+    // NEW MODEL
+    const net = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
+    setInterval(() => {
+      detect(net);
+    }, 10);
+  };
+
+  const detect = async (net) => {
     if (
       typeof webcamRef.current !== "undefined" &&
       webcamRef.current !== null &&
       webcamRef.current.video.readyState === 4
     ) {
-      // Get video properties
+      // Get Video Properties
       const video = webcamRef.current.video;
+      const videoWidth = webcamRef.current.video.videoWidth;
+      const videoHeight = webcamRef.current.video.videoHeight;
 
-      canvasRef.current.width = 640;
-      canvasRef.current.height = 480;
+      // Set canvas width
+      canvasRef.current.width = videoWidth;
+      canvasRef.current.height = videoHeight;
 
-      // Make detections
+      // Make Detections
+      // OLD MODEL
+      // const face = await net.estimateFaces(video);
+      // NEW MODEL
+      const face = await net.estimateFaces({ input:video });
+      // const face = await net.estimateFaces(video, returnTensors);
 
-      const prediction = await model.estimateFaces(video, returnTensors);
-
+      // Get canvas context
       const ctx = canvasRef.current?.getContext("2d");
-      draw(prediction, ctx);
+      // drawMesh(face, ctx);
+      requestAnimationFrame(()=>{drawMesh(face, ctx)});
     }
-
   };
+
+  // const detect = async (model) => {
+  //   if (
+  //     typeof webcamRef.current !== "undefined" &&
+  //     webcamRef.current !== null &&
+  //     webcamRef.current.video.readyState === 4
+  //   ) {
+  //     // Get video properties
+  //     const video = webcamRef.current.video;
+
+  //     canvasRef.current.width = 640;
+  //     canvasRef.current.height = 480;
+
+  //     // Make detections
+
+  //     const prediction = await model.estimateFaces(video, returnTensors);
+
+  //     const ctx = canvasRef.current?.getContext("2d");
+  //     draw(prediction, ctx);
+  //   }
+
+  // };
 
 
   useEffect(() => {
@@ -162,8 +207,8 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
 
       camera.start();
     }
-
-    runFacedetection();
+    runFacemesh();
+    // runFacedetection();
 
     return () => {
       faceDetection.close();
@@ -203,7 +248,6 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
       <canvas
         ref={canvasRef}
         style={{
-          // position: "absolute",
           top: 2,
           left: -3,
           right: 50,
