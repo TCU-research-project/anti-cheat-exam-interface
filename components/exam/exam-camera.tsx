@@ -40,18 +40,18 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
 
   const [chetingStatus, setChetingStatus] = useState("");
 
-  const blazeface = require('@tensorflow-models/blazeface');
+  // const blazeface = require('@tensorflow-models/blazeface');
 
 
-  const runFacedetection = async () => {
+  // const runFacedetection = async () => {
 
-    const model = await blazeface.load();
-    console.log("FaceDetection Model is Loaded..");
-    setInterval(() => {
-      detect(model);
-    }, 100);
+  //   const model = await blazeface.load();
+  //   console.log("FaceDetection Model is Loaded..");
+  //   setInterval(() => {
+  //     detect(model);
+  //   }, 100);
 
-  };
+  // };
 
   const returnTensors = false;
 
@@ -215,16 +215,16 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
     };
   }, [webcamRef, realtimeDetection]);
 
-  const onResultClick = async () => {
-    // const imgSrc = webcamRef.current.getScreenshot();
-    // const blob = await b64toBlob(imgSrc);
-    // const img = new Image(600, 400);
-    // const src = URL.createObjectURL(blob);
-    // img.src = src;
-    // setImg_(src);
+  // const onResultClick = async () => {
+  //   // const imgSrc = webcamRef.current.getScreenshot();
+  //   // const blob = await b64toBlob(imgSrc);
+  //   // const img = new Image(600, 400);
+  //   // const src = URL.createObjectURL(blob);
+  //   // img.src = src;
+  //   // setImg_(src);
 
-    await faceDetectionRef?.current?.send({ image: webcamRef.current.video });
-  };
+  //   await faceDetectionRef?.current?.send({ image: webcamRef.current.video });
+  // };
 
   return (
     <div className={classes.cameraContainer}>
