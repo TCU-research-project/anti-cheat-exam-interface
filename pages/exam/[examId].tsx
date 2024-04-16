@@ -66,6 +66,8 @@ export interface CheatingStatistic {
 export enum CheatingType {
   lookingLeft = 'lookingLeft',
   lookingRight = 'lookingRight',
+  lookingUp = 'lookingUp',
+  lookingDown = 'lookingDown',
   multipleFace = 'multipleFace',
   noFace = 'noFace',
   leavingTab = 'leavingTab'
@@ -74,6 +76,8 @@ export enum CheatingType {
 export enum CheatingTypeText {
   lookingLeft = 'Nhìn sang trái',
   lookingRight = 'Nhìn sang phải',
+  lookingUp = 'Nhìn kên trên',
+  lookingDown = 'Nhìn xuống dưới',
   multipleFace = 'Phát hiện nhiều khuôn mặt',
   noFace = 'Không phát hiện khuôn mặc',
   leavingTab = 'Rời khỏi tab'

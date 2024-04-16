@@ -157,14 +157,19 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
 
       const faceCoordinates = extractFaceCoordinates(result);
 
-      // printLandmarks(result);
+      printLandmarks(result);
 
-      const [lookingLeft, lookingRight] = detectCheating(
+      const [lookingLeft, lookingRight, lookingUp, lookingDown] = detectCheating(
         faceCoordinates,
         false
       );
 
-      const cheatingStatus = getCheatingStatus(lookingLeft, lookingRight);
+      const cheatingStatus = getCheatingStatus(
+        lookingLeft, 
+        lookingRight, 
+        lookingUp, 
+        lookingDown
+      );
       if (cheatingStatus === 'lookingLeft') {
         if (openHandleCheat) {
           handleCheating(CheatingType.lookingLeft);
@@ -177,6 +182,18 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
         }
         setChetingStatus("");
         triggerWarningModal("PHÁT HIỆN GIAN LẬN", "Bạn đang nhìn sang phải");
+      } else if (cheatingStatus === 'lookingUp') {
+        if (openHandleCheat) {
+          handleCheating(CheatingType.lookingUp);
+        }
+        setChetingStatus("");
+        triggerWarningModal("PHÁT HIỆN GIAN LẬN", "Bạn đang nhìn lên trên");
+      } else if (cheatingStatus === 'lookingDown') {
+          if (openHandleCheat) {
+            handleCheating(CheatingType.lookingDown);
+          }
+        setChetingStatus("");
+        triggerWarningModal("PHÁT HIỆN GIAN LẬN", "Bạn đang nhìn xuống dưới");
       } else {
         setChetingStatus("Không phát hiện bất thường");
         // onOpenHandleCheat();

@@ -3,6 +3,8 @@ import { Results } from "@mediapipe/face_detection";
 export interface FaceCoordinates {
   leftEye: number;
   leftEar: number;
+  mouth: number;
+  chin: number;
   rightEye: number;
   rightEar: number;
 }
@@ -21,12 +23,14 @@ export const extractFaceCoordinates = (result: Results): FaceCoordinates => {
   // 4 ---> Left Ear
   // 5 ---> Right Ear
 
-  const [leftEye, rightEye, , , leftEar, rightEar] =
+  const [leftEye, rightEye, mouth, chin, leftEar, rightEar] =
     result.detections[0].landmarks;
 
   return {
     leftEye: leftEye.x,
     leftEar: leftEar.x,
+    mouth: mouth.y,
+    chin: chin.y,
     rightEye: rightEye.x,
     rightEar: rightEar.x,
   };
@@ -37,7 +41,7 @@ export const printLandmarks = (result: Results) => {
     return;
   }
 
-  const { leftEar, leftEye, rightEar, rightEye } =
+  const { leftEar, leftEye, rightEar, rightEye, mouth, chin } =
     extractFaceCoordinates(result);
 
   console.log("----------------------");
@@ -47,16 +51,20 @@ export const printLandmarks = (result: Results) => {
   console.log(`RIGHT EYE: ${rightEye}`);
   console.log(`RIGHT EAR: ${rightEar}`);
   console.log("----------------------");
+  console.log(`MOUTH: ${mouth}`);
+  console.log(`CHIN: ${chin}`);
+  console.log(`SUB: ${mouth - chin}`)
 };
 
 export const detectCheating = (
   faceCoordinates: FaceCoordinates,
   printRefults: boolean = false
 ) => {
-  const { leftEar, leftEye, rightEar, rightEye } = faceCoordinates;
+  const { leftEar, leftEye, rightEar, rightEye, mouth, chin } = faceCoordinates;
 
   const leftCoordDistance = leftEye - leftEar;
   const rightCoordDistance = rightEar - rightEye;
+  const verticalDistance = mouth - chin;
 
   // Old Approcah: ears and eyes crossing
   // const lookingLeft = leftEye.x <= leftEar.x;
@@ -65,23 +73,31 @@ export const detectCheating = (
   // The higher the distance, the difficult it is to cheat
   const lookingLeft = leftCoordDistance <= 0.03;
   const lookingRight = rightCoordDistance <= 0.03;
+  const lookingUp = verticalDistance <= -0.085;
+  const lookingDown = verticalDistance >= -0.07;
 
   if (printRefults) {
     console.log("----------------------");
     console.log(`LOOKING LEFT: ${lookingLeft}`);
     console.log(`LOOKING RIGHT: ${lookingRight}`);
     console.log("----------------------");
+    console.log(`LOOKING UP: ${lookingUp}`);
+    console.log(`LOOKING DOWN: ${lookingDown}`);
   }
 
-  return [lookingLeft, lookingRight];
+  return [lookingLeft, lookingRight, lookingUp, lookingDown];
 };
 
 export const getCheatingStatus = (
   lookingLeft: boolean,
-  lookingRight: boolean
+  lookingRight: boolean,
+  lookingUp: boolean,
+  lookingDown: boolean
 ): string => {
   if (lookingLeft) return "lookingLeft";
   else if (lookingRight) return "lookingRight";
+  else if (lookingUp) return "lookingUp";
+  else if (lookingDown) return "lookingDown";
   else return "okay";
 };
 
