@@ -42,12 +42,14 @@ export const NO_CHEATING_RESULT: Results = {
   ],
 };
 
-export const NO_CHEATING_COORD: FaceCoordinates = {
-  leftEye: 0.4247371256351471,
-  leftEar: 0.36950424313545227,
-  rightEye: 0.5625700950622559,
-  rightEar: 0.6576269865036011,
-};
+// export const NO_CHEATING_COORD: FaceCoordinates = {
+//   leftEye: 0.4247371256351471,
+//   leftEar: 0.36950424313545227,
+//   rightEye: 0.5625700950622559,
+//   rightEar: 0.6576269865036011,
+//   mouth: 0.08,
+//   chin: 0.08
+// };
 
 export const LOOKING_LEFT_RESULT: Results = {
   image: null,
@@ -90,12 +92,12 @@ export const LOOKING_LEFT_RESULT: Results = {
   ],
 };
 
-export const LOOKING_LEFT_COORD: FaceCoordinates = {
-  leftEye: 0.37106189131736755,
-  leftEar: 0.37398236989974976,
-  rightEye: 0.5058948397636414,
-  rightEar: 0.6752753257751465,
-};
+// export const LOOKING_LEFT_COORD: FaceCoordinates = {
+//   leftEye: 0.37106189131736755,
+//   leftEar: 0.37398236989974976,
+//   rightEye: 0.5058948397636414,
+//   rightEar: 0.6752753257751465,
+// };
 
 export const LOOKING_RIGHT_RESULT: Results = {
   image: null,
@@ -138,9 +140,9 @@ export const LOOKING_RIGHT_RESULT: Results = {
   ],
 };
 
-export const LOOKING_RIGHT_COORD: FaceCoordinates = {
-  leftEye: 0.37106189131736755,
-  leftEar: 0.37398236989974976,
-  rightEye: 0.5058948397636414,
-  rightEar: 0.6752753257751465,
-};
+// export const LOOKING_RIGHT_COORD: FaceCoordinates = {
+//   leftEye: 0.37106189131736755,
+//   leftEar: 0.37398236989974976,
+//   rightEye: 0.5058948397636414,
+//   rightEar: 0.6752753257751465,
+// };
