@@ -73,7 +73,7 @@ export const detectCheating = (
   // The higher the distance, the difficult it is to cheat
   const lookingLeft = leftCoordDistance <= 0.03;
   const lookingRight = rightCoordDistance <= 0.03;
-  const lookingUp = verticalDistance <= -0.085;
+  const lookingUp = verticalDistance <= -0.12;
   const lookingDown = verticalDistance >= -0.07;
 
   if (printRefults) {
