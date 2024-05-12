@@ -15,9 +15,9 @@ interface FeaturesProps {}
 const featureList = [
   {
     icon: "ai_icon.png",
-    title: "Nhận diện gương mặt",
+    title: "Nhận diện hành vi bằng AI",
     content:
-      "AI và học máy để phát hiện gian lận bằng cách theo dõi chuyển động khuôn mặt",
+      "Sử dụng công nghệ AI (thị giác máy tính) để phát hiện gian lận bằng cách theo dõi chuyển động khuôn mặt",
   },
   // {
   //   icon: "cross_platform.png",

@@ -33,7 +33,7 @@ const Hero: React.FC<HeroProps> = ({ loadingBarRef }) => {
               <h1>Phần mềm thi online</h1>
 
               <p>
-                Phát hiện gian lận trong thi trực tuyến bằng trí tuệ nhân tạo và học máy
+                Hỗ trợ phát hiện gian lận trong thi trực tuyến sử dụng trí tuệ nhân tạo
               </p>
 
               <Stack direction="row" justifyContent="center" alignItems="center" className={classes.buttonGroup}>
