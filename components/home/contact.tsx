@@ -26,9 +26,9 @@ const Contact: React.FC<ContactProps> = () => {
             />
           </Grid>
           <Grid item xs={6} className={classes.form}>
-            <h1>Contact Us</h1>
+            <h1>Ý kiến đóng góp</h1>
             <div className={classes.formFields}>
-              <TextField name="name" id="name" label="Name" fullWidth />
+              <TextField name="name" id="name" label="Tên" fullWidth />
               <TextField
                 name="email"
                 id="email"
@@ -40,7 +40,7 @@ const Contact: React.FC<ContactProps> = () => {
                 multiline
                 name="message"
                 id="message"
-                label="Message"
+                label="Nội dung"
                 rows={5}
                 fullWidth
               />

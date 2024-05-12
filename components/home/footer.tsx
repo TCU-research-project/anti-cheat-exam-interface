@@ -32,15 +32,12 @@ const Footer: React.FC<FooterProps> = () => {
     <div className={classes.footer}>
       <footer>
         <Container className={classes.items}>
-          <Grid container justifyContent="space-evenly" rowSpacing={5}>
-            {footerLinks.map((link, i) => (
-              <Link href={link.link} key={i}>
-                <Grid item>
-                  <h3>{link.label}</h3>
-                </Grid>
-              </Link>
-            ))}
+        <Grid container alignItems="center">
+          <Grid item xs={12}>
+            <h2 style={{ textAlign: "center" }}>Thông tin sản phẩm</h2>
+            <p style={{ textAlign: "center" }}>Đây là sản phẩm dự thi cuộc thi sáng tạo khoa học công nghệ năm 2024 do trường Đại học Thông tin liên lạc tổ chức</p>
           </Grid>
+        </Grid>
         </Container>
 
         {/* <div className={classes.copyright}>
