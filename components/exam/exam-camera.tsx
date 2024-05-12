@@ -159,7 +159,7 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
         return;
       }
 
-      await sleep(10 * 1000)
+      // await sleep(10 * 1000)
 
       const faceCoordinates = extractFaceCoordinates(result);
 
