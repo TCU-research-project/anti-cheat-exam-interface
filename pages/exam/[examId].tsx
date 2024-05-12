@@ -58,6 +58,8 @@ interface ExamPageProps {
 export interface CheatingStatistic {
   lookingLeft: number;
   lookingRight: number;
+  lookingUp: number;
+  lookingDown: number;
   multipleFace: number;
   noFace: number;
   leavingTab: number;
@@ -136,6 +138,8 @@ const ExamPage: React.FC<ExamPageProps> = ({ exam, error }) => {
   const [cheatingStatistic, setCheatingStatistic] = useState<CheatingStatistic>({
     lookingLeft: 0,
     lookingRight: 0,
+    lookingUp: 0,
+    lookingDown: 0,
     multipleFace: 0,
     noFace: 0,
     leavingTab: 0

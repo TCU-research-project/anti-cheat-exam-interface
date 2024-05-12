@@ -20,6 +20,10 @@ import '@tensorflow/tfjs-backend-webgl';
 import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import { drawMesh } from "../../utils/drawMesh";
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 interface ExamCameraProps {
   triggerWarningModal: (title: string, description: string) => void;
   handleCheating: (type: CheatingType) => void;
@@ -133,7 +137,7 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
       model: "short",
     });
 
-    function onResult(result: Results) {
+    async function onResult(result: Results) {
       // TODO: Fix multiple toasts
       if (result.detections.length < 1) {
         triggerWarningModal("CẢNH BÁO", "Không phát hiện khuôn mặt!");
@@ -154,6 +158,8 @@ const ExamCamera: React.FC<ExamCameraProps> = ({ triggerWarningModal, handleChea
         // );
         return;
       }
+
+      await sleep(10 * 1000)
 
       const faceCoordinates = extractFaceCoordinates(result);
 

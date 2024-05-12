@@ -39,24 +39,30 @@ const CheatStatistic: React.FC<QuestionTrackerProps> = ({cheatingStatistic, hand
 
   return (
     <div className={classes.statisticTracker}>
-      <Typography component="h1" variant="h6" sx={{ mb: 2 }} align="center" fontWeight="bold">
+      <Typography component="h1" variant="h6" align="center" fontWeight="bold">
         Thống kê gian lận
       </Typography>
       <div className={classes.questionStatisticLabel}>
         <List>
-          <ListItem>
+          <ListItem sx={{ pt: "0px", pb: "0px" }}>
             <ListItemText>Nhiều khuôn mặt: {cheatingStatistic.multipleFace}</ListItemText>
           </ListItem>
-          <ListItem>
+          <ListItem sx={{ pt: "0px", pb: "0px" }}>
             <ListItemText>Không có khuôn mặt: {cheatingStatistic.noFace}</ListItemText>
           </ListItem>
-          <ListItem>
+          <ListItem sx={{ pt: "0px", pb: "0px" }}>
             <ListItemText>Nhìn sang trái: {cheatingStatistic.lookingLeft}</ListItemText>
           </ListItem>
-          <ListItem>
+          <ListItem sx={{ pt: "0px", pb: "0px" }}>
             <ListItemText>Nhìn sang phải: {cheatingStatistic.lookingRight}</ListItemText>
           </ListItem>
-          <ListItem>
+          <ListItem sx={{ pt: "0px", pb: "0px" }}>
+            <ListItemText>Nhìn lên trên: {cheatingStatistic.lookingUp}</ListItemText>
+          </ListItem>
+          <ListItem sx={{ pt: "0px", pb: "0px" }}>
+            <ListItemText>Nhìn xuống dưới: {cheatingStatistic.lookingDown}</ListItemText>
+          </ListItem>
+          <ListItem sx={{ pt: "0px", pb: "0px" }}>
             <ListItemText>Rời khỏi tab: {cheatingStatistic.leavingTab}</ListItemText>
           </ListItem>
         </List>
